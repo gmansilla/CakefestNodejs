@@ -1,6 +1,10 @@
 var app  = require("express")();
 var http = require('http').Server(app);
 var io   = require("socket.io")(http);
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 
@@ -13,6 +17,8 @@ app.get("/notify", function(req, res) {
 });
 
 app.post('/notify', function(req, res) {
+    console.log(req.body);
+    console.log('post notify');
 
 });
 
