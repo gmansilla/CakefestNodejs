@@ -8,6 +8,13 @@ app.get("/",function(req,res){
     res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get("/notify", function(req, res) {
+    io.sockets.emit("something", {hello: 'emit'});
+});
+
+app.post('/notify', function(req, res) {
+
+});
 
 
 io.on('connection',function(socket){
