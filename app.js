@@ -16,10 +16,13 @@ app.get("/notify", function(req, res) {
     io.sockets.emit("something", {hello: 'emit'});
 });
 
-app.post('/notify', function(req, res) {
+app.post('/articleNotification', function(req, res) {
     console.log(req.body);
     console.log('post notify');
+});
 
+app.post('/newComment', function(req, res) {
+    console.log('new comment');
 });
 
 
