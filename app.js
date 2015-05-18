@@ -16,8 +16,16 @@ app.get("/notify", function(req, res) {
     io.sockets.emit("something", {hello: 'emit'});
 });
 
-app.post('/articleNotification', function(req, res) {
+app.post('/newArticle', function(req, res) {
     console.log(req.body);
+    console.log('emit new article');
+    res.status(200).send('OK');
+
+});
+
+app.post('/updatedArticle', function(req, res) {
+    console.log(req.body);
+    console.log('emit edit article');
     res.status(200).send('OK');
 });
 
