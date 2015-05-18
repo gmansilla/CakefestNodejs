@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-app.get("/",function(req,res){
+app.get("/",function(req,res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
@@ -18,7 +18,7 @@ app.get("/notify", function(req, res) {
 
 app.post('/articleNotification', function(req, res) {
     console.log(req.body);
-    console.log('post notify');
+    res.status(200).send('OK');
 });
 
 app.post('/newComment', function(req, res) {
@@ -28,7 +28,7 @@ app.post('/newComment', function(req, res) {
 
 io.on('connection',function(socket){
     console.log("A user is connected");
-    socket.emit('something', { hello: 'world' });
+    socket.emit('something', { hello: 'world', isNew: true });
 });
 
 
