@@ -24,14 +24,12 @@ app.post('/articleNotification', function(req, res) {
 
 
 app.post('/newComment', function(req, res) {
-    console.log('new comment');
+    io.sockets.in(req.body.articleId).emit('newComment', req.body);
     res.status(200).send('OK');
 });
 
 
 io.on('connection', function(socket) {
-    console.log("A user is connected");
-    socket.emit('something', { hello: 'world', isNew: true });
     socket.on('joinRoom', function(data){
         socket.join(data.articleId);
     });
