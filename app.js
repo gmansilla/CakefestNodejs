@@ -16,28 +16,38 @@ app.get("/notify", function(req, res) {
     io.sockets.emit("something", {hello: 'emit'});
 });
 
-app.post('/newArticle', function(req, res) {
-    console.log(req.body);
-    console.log('emit new article');
+app.post('/articleNotification', function(req, res) {
+
+
+    if (req.body.isNew === true) {
+        io.sockets.emit('newArticle', req.body);
+    }
+
+    if (req.body.isNew === false) {
+        io.sockets.emit('updatedArticle', req.body);
+    }
+
     res.status(200).send('OK');
 
 });
 
-app.post('/updatedArticle', function(req, res) {
-    console.log(req.body);
-    console.log('emit edit article');
-    res.status(200).send('OK');
-});
+
 
 app.post('/newComment', function(req, res) {
     console.log('new comment');
+    res.status(200).send('OK');
 });
 
 
-io.on('connection',function(socket){
+io.on('connection', function(socket) {
     console.log("A user is connected");
     socket.emit('something', { hello: 'world', isNew: true });
+    socket.on('joinRoom', function(data){
+        socket.join(data.articleId);
+    });
 });
+
+
 
 
 
